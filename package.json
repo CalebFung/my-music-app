@@ -1,0 +1,22 @@
+{
+  "name": "my-music-app",
+  "version": "1.0.0",
+  "description": "Demo web app for GCP workshop @ UTD",
+  "repository": "https://github.com/CalebFung/my-music-app.git",
+  "scripts": {
+    "start": "./node_modules/nodemon/bin/nodemon.js app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Caleb Fung",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@google-cloud/datastore": "^2.0.0",
+    "@google-cloud/storage": "^2.1.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "multer": "^1.4.1",
+    "nconf": "^0.10.0",
+    "nodemon": "^1.18.4",
+    "pug": "^2.0.3"
+  }
+}

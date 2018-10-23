@@ -1,0 +1,31 @@
+//- Adapted from Google Cloud Platform NodeJS Bookshelf series.
+  (https://github.com/GoogleCloudPlatform/nodejs-getting-started)
+
+  Adapted for UT Dallas 2018 GCP Workshop.
+
+extends ../base.pug
+
+block content
+  h3 #{action} album
+  form(method="POST", enctype="multipart/form-data")
+    .form-group
+      label(for="title") Title
+      input.form-control(type="text", name="title", id="title", value=album.title)
+    .form-group
+      label(for="artist") Artist
+      input.form-control(type="text", name="artist", id="artist", value=album.artist)
+    .form-group
+      label(for="year") Year
+      input.form-control(type="number", name="year", id="year", min="1000", max="2018", maxlength="4", value=album.year)
+    .form-group
+      label(for="rating") Rating
+      input.form-control(type="number", step="0.01", name="rating", id="rating", min="0.00", max="5.00", value=album.rating)
+    .form-group
+      label(for="image") Cover Image
+      input.form-control(type="file", name="image", id="image")
+    .form-group
+      label(for="urlImage") Image URL
+      input.form-control(type="text", name="urlImage", id="urlImage", value=album.imageUrl)
+      p
+        small Will be used if no file is uploaded
+    button.btn.btn-success(type="submit") Save

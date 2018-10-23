@@ -1,0 +1,81 @@
+//- Adapted from Google Cloud Platform NodeJS Bookshelf series.
+  (https://github.com/GoogleCloudPlatform/nodejs-getting-started)
+
+  Adapted for UT Dallas 2018 GCP Workshop.
+
+extends ../base.pug
+
+block content
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.15/howler.min.js").
+
+  style.
+    i.glyphicon-play-circle, i.glyphicon-pause {
+      font-size: 34px;
+      cursor: pointer;
+      margin-right: 16px;
+    }
+
+  h3 Album
+    small
+
+  .btn-group
+    a(href=`/albums/${album.id}/edit`, class='btn btn-primary btn-sm')
+      i.glyphicon.glyphicon-edit
+      span  Edit album
+    a(href=`/albums/${album.id}/add-track`, class='btn btn-primary btn-sm')
+      i.glyphicon.glyphicon-plus
+      span  Add track
+    a(href=`/albums/${album.id}/delete`, class='btn btn-danger btn-sm')
+      i.glyphicon.glyphicon-trash
+      span  Delete album
+
+  .media
+    .media-left
+      img(src=album.imageUrl || "https://picsum.photos/192/?random")
+    .media-body
+      h4= album.title
+        | &nbsp;
+        small (
+        small= album.year
+        small )
+      h5 By #{album.artist||'unknown'} | #{album.tracks ? album.tracks.length : 0} tracks
+      h5 Rated #{album.rating}/5
+  
+  if album.tracks
+    each track, idx in album.tracks
+      .panel.panel-default
+        .panel-body
+          .media
+            .media-left(onclick='toggle(' + idx + ')')
+              i(class="glyphicon glyphicon-play-circle", id="button-"+idx)
+            .media-body
+              h4= (idx+1) + ' ' + track.title
+    
+    script.
+      var album = !{JSON.stringify(album)};
+      var states = [];
+      var last = -1;
+      var tracks = album.tracks.map(t => new Howl({ src: [t.fileUrl], html5: true }));
+
+      for (var i=0; i<tracks.length; i++) states.push({playing: false});
+
+      function toggle(idx) {
+        states[idx].playing = !states[idx].playing;
+        if (states[idx].playing) {
+          document.getElementById("button-"+idx).classList.remove('glyphicon-play-circle');
+          document.getElementById("button-"+idx).classList.add('glyphicon-pause');
+          tracks[idx].play();
+        } else {
+          document.getElementById("button-"+idx).classList.add('glyphicon-play-circle');
+          document.getElementById("button-"+idx).classList.remove('glyphicon-pause');
+          tracks[idx].pause();
+        }
+        if (last > -1 && last != idx) {
+          states[last].playing = false;
+          document.getElementById("button-"+last).classList.add('glyphicon-play-circle');
+          document.getElementById("button-"+last).classList.remove('glyphicon-pause');
+          tracks[last].pause();
+        }
+
+        last = idx;
+      }

@@ -1,0 +1,43 @@
+//- Adapted from Google Cloud Platform NodeJS Bookshelf series.
+  (https://github.com/GoogleCloudPlatform/nodejs-getting-started)
+
+  Adapted for UT Dallas 2018 GCP Workshop.
+
+extends ../base.pug
+
+block content
+  h3 Albums
+
+  a(href="/albums/add", class='btn btn-success btn-sm')
+    i.glyphicon.glyphicon-plus
+    span  Add album
+
+  .dropdown
+    button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown' aria-expanded='true')
+      | Order
+      span.caret
+    ul.dropdown-menu(role='menu' aria-labelledby='dropdownMenu1')
+      li(role='presentation', onclick='order(\"rating\")')
+        a(role='menuitem' tabindex='-1' href='/albums?order=rating') Rating
+      li(role='presentation', onclick='order(\"title\")')
+        a(role='menuitem' tabindex='-1' href='/albums?order=title') Title
+      li(role='presentation', , onclick='order(\"year\")')
+        a(role='menuitem' tabindex='-1' href='/albums?order=year') Year
+
+  each album in albums
+    .media
+      a(href=`/albums/${album.id}`)
+        .media-left
+            img(src=album.imageUrl || "https://picsum.photos/192/?random")
+        .media-body
+          h4= album.title
+          p #{album.artist} &nbsp; (#{album.rating}/5)
+
+  if !albums.length
+    p No albums found.
+
+  if nextPageToken
+    nav
+      ul.pager
+        li
+          a(href=`?pageToken=${encodeURIComponent(nextPageToken)}`) More

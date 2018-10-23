@@ -1,0 +1,27 @@
+//- Adapted from Google Cloud Platform NodeJS Bookshelf series.
+  (https://github.com/GoogleCloudPlatform/nodejs-getting-started)
+
+  Adapted for UT Dallas 2018 GCP Workshop.
+
+doctype html
+html(lang="en")
+  head
+    title My Music App
+    meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel='shortcut icon' href='https://cloud.google.com/_static/7e8fbbc4f5/images/cloud/icons/favicons/onecloud/favicon.ico')
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+    script(src="https://code.jquery.com/jquery-3.3.1.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+  body
+    .navbar.navbar-default
+      .container
+        .navbar-header
+          .navbar-brand My Music App
+
+        ul.nav.navbar-nav
+          li
+            a(href="/albums") Albums
+
+    .container
+      block content

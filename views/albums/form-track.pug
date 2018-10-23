@@ -1,0 +1,17 @@
+//- Adapted from Google Cloud Platform NodeJS Bookshelf series.
+  (https://github.com/GoogleCloudPlatform/nodejs-getting-started)
+
+  Adapted for UT Dallas 2018 GCP Workshop.
+
+extends ../base.pug
+
+block content
+  h3 Add tracks
+  form(method="POST", enctype="multipart/form-data")
+    .form-group
+      label(for="title") Title
+      input.form-control(type="text", name="title", id="title")
+    .form-group
+      label(for="track") Tracks
+      input.form-control(type="file", name="track")
+    button.btn.btn-success(type="submit") Save
